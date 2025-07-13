@@ -1,0 +1,115 @@
+<div class="page-overlay" id="ingestion-page">
+    <div data-include="ubuntu/html/close-button.html"></div>
+    <div class="page-content">
+        <h1 class="section-title">❤️ Ingestion</h1>
+        <div class="mission-statement">
+            "Exponential functions, risk calculators, and survival analysis — the mathematical foundations of health decision-making in an uncertain world."
+        </div>
+        <div class="calculator-section">
+            <h2 class="calc-title">🧮 Personalized Risk Calculator</h2>
+            <p class="calc-subtitle">Donor vs Non-Donor Survival Analysis</p>
+            <div class="data-source">
+                <strong>📊 Data Source:</strong>
+                <label>
+                    <input type="radio" name="dataSource" value="real" checked> Real Data
+                </label>
+                <label>
+                    <input type="radio" name="dataSource" value="synthetic"> Synthetic Data
+                </label>
+            </div>
+            <div class="view-select">
+                <strong>📈 View:</strong>
+                <select>
+                    <option>Compare Groups</option>
+                    <option>Donor Only</option>
+                    <option>Non-Donor Only</option>
+                </select>
+            </div>
+            <div class="grid">
+                <div class="form-group">
+                    <label>Age (years):</label>
+                    <input type="number" placeholder="Enter age" min="0" max="120">
+                </div>
+                <div class="form-group">
+                    <label>Gender:</label>
+                    <select>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Hypertension:</label>
+                    <select>
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Smoking History:</label>
+                    <select>
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>No College Education:</label>
+                    <select>
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Insurance:</label>
+                    <select>
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ADI > Median:</label>
+                    <select>
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Race/Ethnicity:</label>
+                    <select>
+                        <option>Non-Hispanic White</option>
+                        <option>Hispanic</option>
+                        <option>Non-Hispanic Black</option>
+                        <option>Non-Hispanic Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>BMI (kg/m²):</label>
+                    <input type="number" placeholder="Enter BMI" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>SBP (mmHg):</label>
+                    <input type="number" placeholder="Systolic BP">
+                </div>
+                <div class="form-group">
+                    <label>DBP (mmHg):</label>
+                    <input type="number" placeholder="Diastolic BP">
+                </div>
+                <div class="form-group">
+                    <label>eGFR (mL/min):</label>
+                    <input type="number" placeholder="Kidney function">
+                </div>
+                <div class="form-group">
+                    <label>Income ($):</label>
+                    <input type="number" placeholder="Annual income">
+                </div>
+            </div>
+            <button class="btn" onclick="calculateRisk()">Calculate Risk</button>
+            <div class="data-info">
+                <h3>ℹ️ Data Information</h3>
+                <p><strong>Data Source:</strong> Cox regression model with risk calculation</p>
+                <p><strong>Files Downloaded:</strong> 6</p>
+                <p><strong>Last Updated:</strong> 7/12/2025</p>
+            </div>
+        </div>
+        <div data-include="ubuntu/html/footer.html"></div>
+    </div>
+</div>
