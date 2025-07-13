@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +40,7 @@
             z-index: -1;
         }
 
-        .star {
+        . polyp {
             position: absolute;
             background: white;
             border-radius: 50%;
@@ -281,7 +282,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title" id="modal-title"></h2>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <button class="close-btn" onclick="closeModal()">×</button>
             </div>
             <div class="description" id="modal-description"></div>
             <table class="variant-table">
@@ -335,18 +336,19 @@
                     { glyph: "⛰️", variant: "Zungazunga", meaning: "Inherited restlessness, mythic wandering" },
                     { glyph: "🦅", variant: "Zarathustra", meaning: "Leaping downward not to fall, but to fly" },
                     { glyph: "🔗", variant: "Connecting", meaning: "Linking disparate places together, remixing" },
-                    { glyph: "🧭", variant: "Surveying", meaning: "Recursive surveying, wayfinding methodology" }
+                    { glyph: "🧭", variant: "Surveying", meaning: "Recursive surveying, wayfinding methodology" }   
                 ]
             },
             ukusoma: {
                 title: "Ukusoma - Contact",
-                description: "The moment of interface: touch, pressure, initiation. Contact that leads to transformation. In recursion terms: this is the activation point, the fork, the remixing node. Think gametocytes: not the origin or the end — but the spark of generative transformation.",
+                description: "The moment of interface: touch, pressure, initiation. Contact that leads to transformation. In recursion terms: this is the activation point, <a href=\"https://abikesa.github.io/nares/\">the</a> <a href=\"vzsbk/soma.html\">fork</a>, the remixing node. Here, the user meets Mathema—the structured grammar of health, encoded in Bayesian models and Cox regression—yielding Pathema: a recombinant narrative where personal and population data intertwine.",
                 variants: [
                     { glyph: "⚡", variant: "Ukusoma", meaning: "Contact with Earth, Nature, Mathema" },
-                    { glyph: "🤝", variant: "Interface", meaning: "The moment of catalytic contact" },
+                    { glyph: "🤝", variant: "Interface", meaning: "The moment of catalytic contact via the risk calculator" },
+                    { glyph: "🧮", variant: "Mathema", meaning: "Structured grammar of health—Bayesian inference and survival analysis" },
                     { glyph: "🔥", variant: "Activation", meaning: "The spark of generative transformation" },
-                    { glyph: "🧬", variant: "Gametocytes", meaning: "Symbolic insemination, remixing potential" },
-                    { glyph: "⚗️", variant: "Transformation", meaning: "T^X≠0 vs T^X=0 - force with difference" }
+                    { glyph: "🧬", variant: "Pathema", meaning: "Recombinant narrative—personal history fused with population data" },
+                    { glyph: "⚗️", variant: "Transformation", meaning: "T^X≠0 vs T^X=0—force with difference, rewritten identity" }
                 ]
             },
             ukubona: {
@@ -403,7 +405,7 @@
             const phaseData = phases[phase];
             
             title.textContent = phaseData.title;
-            description.textContent = phaseData.description;
+            description.innerHTML = phaseData.description; // Use innerHTML to render <a> tags
             
             tbody.innerHTML = '';
             phaseData.variants.forEach(variant => {

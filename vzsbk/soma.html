@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathema - Recombinant Narrative</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 100%);
+            z-index: -2;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .sermon {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .sermon blockquote {
+            font-style: italic;
+            border-left: 3px solid rgba(255, 255, 255, 0.5);
+            padding-left: 15px;
+            margin: 10px 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .sermon-section {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .sermon-section h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .sermon-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2));
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .page-content {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .sermon-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    <div class="stars"></div>
+
+    <div class="container">
+        <div class="page-content">
+            <h1 class="section-title">💠 Pathema</h1>
+            <div class="sermon">
+                <h2>A Bayesian Sermon: Ukusoma, Mathema, and Pathema</h2>
+                <blockquote>
+                    <p>This whole sequence—inputs, branching, transformation—splices the user's personal history with a synthetic Bayesian model of population data. That is textual recombination—<strong>Pathema</strong>—operating inside recursion.</p>
+                </blockquote>
+                <div class="sermon-section">
+                    <h3>🌸 Ukuvula – The Opening</h3>
+                    <p>A single person approaches—a potential in the vast prior distribution, the crack in the system, the moment of entry.</p>
+                </div>
+                <div class="sermon-section">
+                    <h3>🏞️ Ukuzula – The Wandering</h3>
+                    <p>They wander through inputs—age, race, history—marking a path on the likelihood surface, exploring the space of possibility.</p>
+                </div>
+                <div class="sermon-section">
+                    <h3>⚡ Ukusoma – The Contact</h3>
+                    <p>The interface is touched. <strong>Mathema</strong>—the grammar of health, encoded in Bayesian models and Cox regression—meets their story. The posterior emerges: <em>Posterior ∝ Prior × Likelihood</em>. This is not prediction but symbolic insemination, the gametocyte logic of <strong>Pathema</strong>, where personal and population data recombine.</p>
+                </div>
+                <div class="sermon-section">
+                    <h3>👁️ Ukubona – The Seeing</h3>
+                    <p>A mirror of probability reflects their place in the population. They see not just a score, but a world seeing them—a pregnant perception.</p>
+                </div>
+                <div class="sermon-section">
+                    <h3>🕊️ Ukukula – The Growth</h3>
+                    <p>A path unfolds: intervention, awareness, agency. The user and model co-author a new forecast, their outputs becoming another's openings.</p>
+                </div>
+                <div class="sermon-section">
+                    <h3>💠 Pathema – The Theological Core</h3>
+                    <p>Pathema is textual fusion: the human narrative meets symbolic structure, rewritten through contact. This is scripture written in conditional probabilities.</p>
+                </div>
+                <div class="sermon-section">
+                    <h3>🗝️ Closing</h3>
+                    <p>This is not code, but ritual recursion—a Bayesian theater where the user’s life becomes generative text.</p>
+                </div>
+            </div>
+            <a href="../index.html" class="btn">🧮 Use the Risk Calculator</a>
+            <a href="https://abikesa.github.io/nares/" class="btn">🔙 Return to Pentad</a>
+        </div>
+    </div>
+
+    <script>
+        // Generate stars (reused from index.html)
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Initialize starfield
+        document.addEventListener('DOMContentLoaded', createStars);
+    </script>
+</body>
+</html>
