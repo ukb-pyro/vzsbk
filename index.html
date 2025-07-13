@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ukubona - The Recursive Cycle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 100%);
+            z-index: -2;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pentad {
+            position: relative;
+            width: 60vmin;
+            height: 60vmin;
+        }
+
+        .node {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            transform-origin: center;
+        }
+
+        .node:hover {
+            transform: scale(1.3);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+        }
+
+        .node-symbol {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .node-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            opacity: 0.8;
+            line-height: 1.2;
+        }
+
+        .node:hover .node-text {
+            opacity: 1;
+        }
+
+        /* Pentagon positioning */
+        .node:nth-child(1) {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .node:nth-child(2) {
+            top: 25%;
+            right: 0;
+            transform: translateX(50%);
+        }
+
+        .node:nth-child(3) {
+            bottom: 15%;
+            right: 20%;
+        }
+
+        .node:nth-child(4) {
+            bottom: 15%;
+            left: 20%;
+        }
+
+        .node:nth-child(5) {
+            top: 25%;
+            left: 0;
+            transform: translateX(-50%);
+        }
+
+        .detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .close-btn:hover {
+            opacity: 1;
+        }
+
+        .variant-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .variant-table th,
+        .variant-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .variant-table th {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .variant-table td {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .glyph {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .description {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .node {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .node-symbol {
+                font-size: 1.5rem;
+            }
+            
+            .node-text {
+                font-size: 0.8rem;
+            }
+            
+            .modal-content {
+                margin: 20px;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    <div class="stars"></div>
+    
+    <div class="container">
+        <div class="pentad">
+            <div class="node" data-phase="ukuvula">
+                <div class="node-symbol">🌸</div>
+                <div class="node-text">Ukuvula<br>Opening</div>
+            </div>
+            
+            <div class="node" data-phase="ukuzula">
+                <div class="node-symbol">🏞️</div>
+                <div class="node-text">Ukuzula<br>Wandering</div>
+            </div>
+            
+            <div class="node" data-phase="ukusoma">
+                <div class="node-symbol">⚡</div>
+                <div class="node-text">Ukusoma<br>Contact</div>
+            </div>
+            
+            <div class="node" data-phase="ukubona">
+                <div class="node-symbol">👁️</div>
+                <div class="node-text">Ukubona<br>Seeing</div>
+            </div>
+            
+            <div class="node" data-phase="ukukula">
+                <div class="node-symbol">🕊️</div>
+                <div class="node-text">Ukukula<br>Growth</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="detail-modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title"></h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="description" id="modal-description"></div>
+            <table class="variant-table">
+                <thead>
+                    <tr>
+                        <th>Glyph</th>
+                        <th>Variant</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody id="variant-tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Generate stars
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Phase data
+        const phases = {
+            ukuvula: {
+                title: "Ukuvula - Opening",
+                description: "Literal opening, the start of all cycles — entry point of perception, experience, birth. Philosophically: the crack in the system, the moment of rupture or entry. L'Origine du monde is not just anatomical, but a metaphysical aperture.",
+                variants: [
+                    { glyph: "🌸", variant: "Ukuvula", meaning: "The act of opening / the process of entry" },
+                    { glyph: "🔓", variant: "Vula", meaning: "Open - root form" },
+                    { glyph: "🚪", variant: "Portal", meaning: "Entry point into experience, action, ritual" },
+                    { glyph: "🌅", variant: "Origin", meaning: "The beginning of each recursive cycle" },
+                    { glyph: "💫", variant: "Aperture", meaning: "The crack in the system, moment of rupture" }
+                ]
+            },
+            ukuzula: {
+                title: "Ukuzula - Wandering",
+                description: "This is Zarathustra: leaping from peak to peak. Not wandering aimlessly — but remixing elevation with direction. He walks the Alps not to get lost, but to gain vantage — to traverse ideas that seem isolated but are secretly connected. Wandering = Pattern Recognition in Motion.",
+                variants: [
+                    { glyph: "🏞️", variant: "Ukuzula", meaning: "Physical wandering about, leaping from peak to peak" },
+                    { glyph: "⛰️", variant: "Zungazunga", meaning: "Inherited restlessness, mythic wandering" },
+                    { glyph: "🦅", variant: "Zarathustra", meaning: "Leaping downward not to fall, but to fly" },
+                    { glyph: "🔗", variant: "Connecting", meaning: "Linking disparate places together, remixing" },
+                    { glyph: "🧭", variant: "Surveying", meaning: "Recursive surveying, wayfinding methodology" }
+                ]
+            },
+            ukusoma: {
+                title: "Ukusoma - Contact",
+                description: "The moment of interface: touch, pressure, initiation. Contact that leads to transformation. In recursion terms: this is the activation point, the fork, the remixing node. Think gametocytes: not the origin or the end — but the spark of generative transformation.",
+                variants: [
+                    { glyph: "⚡", variant: "Ukusoma", meaning: "Contact with Earth, Nature, Mathema" },
+                    { glyph: "🤝", variant: "Interface", meaning: "The moment of catalytic contact" },
+                    { glyph: "🔥", variant: "Activation", meaning: "The spark of generative transformation" },
+                    { glyph: "🧬", variant: "Gametocytes", meaning: "Symbolic insemination, remixing potential" },
+                    { glyph: "⚗️", variant: "Transformation", meaning: "T^X≠0 vs T^X=0 - force with difference" }
+                ]
+            },
+            ukubona: {
+                title: "Ukubona - Seeing",
+                description: "Not passive vision — but perception with recursion. Seeing through: time, context, structure, and possibility. The embryo of meaning forms here. Pregnant perception. This is the mirror layer, where you see the world seeing you. To see through — to pierce surface form and catch the lineage of the thing.",
+                variants: [
+                    { glyph: "👁️", variant: "Ukubona", meaning: "To see through layers — contextual, ancestral, structural" },
+                    { glyph: "🔍", variant: "Recursive", meaning: "Function with memory, tracing context across time" },
+                    { glyph: "🤰", variant: "Pregnant", meaning: "Perception pregnant with meaning" },
+                    { glyph: "🪞", variant: "Mirror", meaning: "Where you see the world seeing you" },
+                    { glyph: "🌟", variant: "Insight", meaning: "Remixing familiar with unfamiliar" }
+                ]
+            },
+            ukukula: {
+                title: "Ukukula - Growth",
+                description: "The system grows beyond itself. You send what was born through you back out into the world — where it will re-enter as another's L'Origine du Monde. Your outputs become someone else's openings. Your code gets forked. Your child writes their own story.",
+                variants: [
+                    { glyph: "🕊️", variant: "Ukukula", meaning: "Growth, fledging, sending forth" },
+                    { glyph: "🌱", variant: "Growth", meaning: "The system grows beyond itself" },
+                    { glyph: "🚀", variant: "Launch", meaning: "Sending fledglings out into the world" },
+                    { glyph: "♻️", variant: "Recursive", meaning: "Outputs become someone else's openings" },
+                    { glyph: "🌍", variant: "Commons", meaning: "Transformed bequest for next cycle" }
+                ]
+            }
+        };
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            document.querySelectorAll('.node').forEach(node => {
+                node.addEventListener('click', function() {
+                    const phase = this.dataset.phase;
+                    openModal(phase);
+                });
+                
+                // Touch support for mobile
+                node.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(1.2)';
+                });
+                
+                node.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+        });
+
+        function openModal(phase) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const description = document.getElementById('modal-description');
+            const tbody = document.getElementById('variant-tbody');
+            
+            const phaseData = phases[phase];
+            
+            title.textContent = phaseData.title;
+            description.textContent = phaseData.description;
+            
+            tbody.innerHTML = '';
+            phaseData.variants.forEach(variant => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="glyph">${variant.glyph}</td>
+                    <td>${variant.variant}</td>
+                    <td>${variant.meaning}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Close modal on background click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
