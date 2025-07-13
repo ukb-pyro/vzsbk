@@ -1,15 +1,22 @@
 // Load HTML partials
 function includeHTML() {
     const includes = document.querySelectorAll('[data-include]');
+    let loadedCount = 0;
     includes.forEach(el => {
         fetch(el.getAttribute('data-include'))
             .then(response => response.text())
             .then(data => {
                 el.innerHTML = data;
-                // Reattach event listeners after loading partials
-                attachGlyphListeners();
-                attachCloseButtonListeners();
-            });
+                loadedCount++;
+                if (loadedCount === includes.length) {
+                    // All partials loaded, initialize stars and listeners
+                    generateStars();
+                    attachGlyphListeners();
+                    attachCloseButtonListeners();
+                    showPentagon();
+                }
+            })
+            .catch(error => console.error('Error loading partial:', error));
     });
 }
 
@@ -17,6 +24,7 @@ function includeHTML() {
 function generateStars() {
     const starsContainer = document.querySelector('.stars');
     if (starsContainer) {
+        starsContainer.innerHTML = ''; // Clear existing stars to prevent duplicates
         for (let i = 0; i < 100; i++) {
             const star = document.createElement('div');
             star.className = 'star';
@@ -34,6 +42,7 @@ function showPentagon() {
     if (pentagon) {
         pentagon.style.display = 'flex';
         pentagon.style.opacity = '1';
+        pentagon.classList.remove('hidden');
     }
 }
 
@@ -47,7 +56,10 @@ function attachGlyphListeners() {
             const pageId = glyph.dataset.page + '-page';
             pages.forEach(page => page.style.display = 'none');
             document.getElementById(pageId).style.display = 'block';
-            if (pentagon) pentagon.style.opacity = '0'; // Fade out pentagon when opening a page
+            if (pentagon) {
+                pentagon.style.opacity = '0';
+                pentagon.classList.add('hidden');
+            }
         });
     });
 }
@@ -74,8 +86,4 @@ function calculateNutrition() {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    includeHTML();
-    generateStars();
-    showPentagon(); // Ensure pentagon is visible on load
-});
+document.addEventListener('DOMContentLoaded', includeHTML);
